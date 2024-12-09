@@ -1,10 +1,10 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import NextAuth, { AuthOptions } from "next-auth";
 import bcrypt from "bcrypt";
+import NextAuth, { AuthOptions } from "next-auth";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
-import prisma from "../../../libs/prismadb";
-import Github from "next-auth/providers/github";
+import prisma from "../../../../app/libs/prismadb";
 import Google from "next-auth/providers/google";
+import Github from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 
 export const authOptions: AuthOptions = {
@@ -31,7 +31,7 @@ export const authOptions: AuthOptions = {
 
         const user = await prisma.user.findUnique({
           where: {
-            email: credentials?.email,
+            email: credentials.email,
           },
         });
 
@@ -52,12 +52,12 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
-  debug: process.env.NODE_ENV === "production",
   session: {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === "development",
 };
-const handler = NextAuth(authOptions);
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
