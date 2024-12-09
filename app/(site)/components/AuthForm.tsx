@@ -17,16 +17,16 @@ const AuthForm = () => {
   const session = useSession();
   const router = useRouter();
 
-  // console.log(session);
+  console.log(session);
 
   const [variant, setVariant] = useState<Variant>("LOGIN");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (session?.status === "authenticated") {
+    if (session?.data?.user) {
       router.push("/users");
     }
-  }, [session?.status, router]);
+  }, [session?.data?.user, router]);
 
   const toggleVariant = useCallback(() => {
     if (variant === "LOGIN") {
