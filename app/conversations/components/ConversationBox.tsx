@@ -52,7 +52,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
       return false;
     }
 
-    return seenArray.filter((user) => user.email === userEmail).length !== 0;
+    return seenArray.filter((user) => user?.email === userEmail).length !== 0;
   }, [userEmail, lastMessage]);
 
   const lastMessageText = useMemo(() => {
@@ -99,7 +99,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
           <span className="absolute inset-0" aria-hidden="true" />
           <div className="flex justify-between items-center mb-1">
             <p className="text-md font-medium text-gray-900 ">
-              {data.name || otherUser.name}
+              {data?.name || otherUser?.name}
             </p>
             {lastMessage?.createdAt && (
               <p
@@ -109,7 +109,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
                   font-light
                 "
               >
-                {format(new Date(lastMessage.createdAt), "p")}
+                {format(new Date(lastMessage?.createdAt), "p")}
               </p>
             )}
           </div>
